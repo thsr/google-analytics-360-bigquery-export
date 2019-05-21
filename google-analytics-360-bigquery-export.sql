@@ -1,7 +1,7 @@
 #standardSQL
 with ga_data as (
   SELECT
-    CONCAT(SAFE_CAST(visitId as STRING), ".", clientId) as session_id, -- because visit IDs arent't unique
+    CONCAT(SAFE_CAST(visitId as STRING), ".", clientId) as session_id, -- because visit IDs aren't unique
     IF(totals.bounces=1, CONCAT(SAFE_CAST(visitId as STRING), '.', clientId), Null) as bounced_session_id,
     visitNumber as visit_number,
     visitId as visit_id,
@@ -87,7 +87,7 @@ with ga_data as (
     ( SELECT value FROM UNNEST(t.customMetric) WHERE index=1 ) as custom_metric_1_session_scope,
     ( SELECT value FROM UNNEST(hits.customMetric) WHERE index=1 ) as custom_metric_1_hit_scope,
 
-    -- escalates labels from "example" event actions to the session level
+    -- escalates labels from "example" event actions to the session level:
     ( SELECT eventInfo.eventLabel FROM UNNEST(t.hits) WHERE eventInfo.eventAction like "example" limit 1 ) as escalate_hit_level_to_session_level,
 
     date
