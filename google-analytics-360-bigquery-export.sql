@@ -78,6 +78,8 @@ with ga_data as (
     device.browserSize as browser_size,
     device.screenResolution as screen_resolution,
 
+    ( SELECT experimentVariant FROM UNNEST(hits.experiment) WHERE experimentId="example" ) as experiment_variant,
+
     ( SELECT value FROM UNNEST(t.customDimensions) WHERE index=1 ) as custom_dimension_1_session_scope,
     ( SELECT value FROM UNNEST(hits.customDimensions) WHERE index=1 ) as custom_dimension_1_hit_scope,
 
