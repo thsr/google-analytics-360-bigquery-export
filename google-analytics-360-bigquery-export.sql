@@ -17,6 +17,7 @@ with ga_data as (
     hits.minute as minute,
 
     hits.page.pagePath as page_path,
+    ( SELECT page.pagePath FROM UNNEST(t.hits) WHERE hitNumber=1 limit 1 ) as landing_page_path,
     hits.page.hostname as hostname,
     hits.eventInfo.eventCategory as event_category,
     hits.eventInfo.eventAction as event_action,
